@@ -36,7 +36,7 @@ The observable pattern was:
 
 1. DIA feeds were updated to values roughly `10,000x` lower than their prior scale.
 2. Morpho oracle adapters followed the scaled-down DIA values.
-3. Affected positions became liquidatable starting in the next block, `25030093`.
+3. Affected positions became liquidatable immediately after the update. One PEPE liquidation occurred in the same block at transaction index `2`, after the DIA update at transaction index `1`; broader liquidations continued in the next block, `25030093`.
 4. A later DIA update at block `25030777` restored the previous scale.
 
 ## Markets Affected
@@ -52,9 +52,9 @@ PEPE, JOE, SPX, MOG, SHIB, NEIRO, IMF, NPC, REKT, APU, CULT, BITCOIN
 Across the analyzed liquidation window, the affected markets had:
 
 ```text
-180 liquidation events
-149 unique liquidation transactions
-139 unique borrowers
+181 liquidation events
+150 unique liquidation transactions
+140 unique borrowers
 ```
 
 For the supporting feed-level and market-level evidence, see [Appendix A: affected feeds and Morpho markets](morpho-dia-impacted-markets.md).
@@ -65,29 +65,30 @@ Across the impacted markets analyzed, the liquidation and extraction estimate is
 
 | Metric | Estimate |
 |---|---:|
-| USDS actually repaid by liquidators | `104.43 USDS` |
-| USDS bad debt recorded | `352,963.78 USDS` |
-| Total USDS debt closed / affected | `353,068.21 USDS` |
-| Fair value of seized collateral | `$1,129,468.38` |
-| Gross liquidator extraction | `$1,129,363.96` |
-| Estimated gas paid by liquidation txs | `$77.26` |
-| Net liquidator extraction after gas | `$1,129,286.70` |
+| USDS actually repaid by liquidators | `157.89 USDS` |
+| USDS bad debt recorded | `654,573.82 USDS` |
+| Total USDS debt closed / affected | `654,731.71 USDS` |
+| Fair value of seized collateral | `$1,707,958.14` |
+| Gross liquidator extraction | `$1,707,800.25` |
+| Estimated gas paid by original liquidation txs | `$77.26` |
+| Net liquidator extraction after known gas | `$1,707,722.99` |
 
 Liquidation activity was concentrated among a small number of liquidator callers:
 
 | Liquidator caller | Events | Unique txs | Markets touched | Share of events |
 |---|---:|---:|---:|---:|
-| [`0xad21...3221`](https://etherscan.io/address/0xad213ae0b710c7bc6c915984d91bad008b2d3221) | 88 | 88 | 17 | `~48.9%` |
-| [`0x3633...e95c`](https://etherscan.io/address/0x36331e299247e5d0d3261e1d9852f6e0cffee95c) | 58 | 58 | 21 | `~32.2%` |
-| [`0xaba9...78f8`](https://etherscan.io/address/0xaba996f3f6170a85a31d7f8f4b54816e141278f8) | 33 | 2 | 2 | `~18.3%` |
+| [`0xad21...3221`](https://etherscan.io/address/0xad213ae0b710c7bc6c915984d91bad008b2d3221) | 88 | 88 | 17 | `~48.6%` |
+| [`0x3633...e95c`](https://etherscan.io/address/0x36331e299247e5d0d3261e1d9852f6e0cffee95c) | 58 | 58 | 21 | `~32.0%` |
+| [`0xaba9...78f8`](https://etherscan.io/address/0xaba996f3f6170a85a31d7f8f4b54816e141278f8) | 33 | 2 | 2 | `~18.2%` |
+| [`0xbd32...079c`](https://etherscan.io/address/0xbd32122bad41a09f2405bb374a83877d8245079c) | 1 | 1 | 1 | `~0.6%` |
 | [`0xe08d...d015`](https://etherscan.io/address/0xe08d97e151473a848c3d9ca3f323cb720472d015) | 1 | 1 | 1 | `~0.6%` |
 
 High-level interpretation:
 
-- Liquidators repaid only about `104 USDS` in aggregate because the scaled-down oracle values made collateral appear almost worthless.
-- They received collateral with an estimated fair value of approximately `$1.13M`, using normalized pre-update and post-restoration DIA prices.
-- Morpho recorded approximately `352,964 USDS` of bad debt.
-- The top two liquidator callers account for approximately `81.1%` of liquidation events.
+- Liquidators repaid only about `158 USDS` in aggregate because the scaled-down oracle values made collateral appear almost worthless.
+- They received collateral with an estimated fair value of approximately `$1.708M`, using normalized pre-update and post-restoration DIA prices.
+- Morpho recorded approximately `654,574 USDS` of bad debt.
+- The top two liquidator callers account for approximately `80.7%` of liquidation events.
 
 For methodology, caveats, per-market results, and the full liquidator breakdown, see [Appendix B: liquidation loss and liquidator extraction estimate](morpho-dia-liquidation-loss-estimate.md).
 

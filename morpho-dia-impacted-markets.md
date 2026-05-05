@@ -36,16 +36,16 @@ All values below are raw DIA values read from `getValue(string)`.
 
 ## Confirmed Morpho USDS Markets With Liquidations
 
-The table below counts Morpho `Liquidate` events from the first post-update block through the correction window:
+The table below counts Morpho `Liquidate` events from immediately after the DIA scale-change update through the correction window. The window begins in the same block as the DIA update because one PEPE liquidation occurred after the DIA update transaction in block `25030092`.
 
 ```text
-from block 25030093 through block 25030776
+from block 25030092, transactionIndex > 1, through block 25030776
 ```
 
 | Collateral | LLTV | Morpho market | Liquidation events |
 |---|---:|---|---:|
 | PEPE | 62.5% | [`0xcbc21405c11c8eb13f1741bfba2a72dfbdab3cb525b79dc5b61148b1183b79a0`](https://app.morpho.org/ethereum/market/0xcbc21405c11c8eb13f1741bfba2a72dfbdab3cb525b79dc5b61148b1183b79a0) | 1 |
-| PEPE | 77% | [`0x5ffdf15c5a4d7c6affb3f12634eeda1a20e60b92c0eb547f61754f656b55841e`](https://app.morpho.org/ethereum/market/0x5ffdf15c5a4d7c6affb3f12634eeda1a20e60b92c0eb547f61754f656b55841e) | 19 |
+| PEPE | 77% | [`0x5ffdf15c5a4d7c6affb3f12634eeda1a20e60b92c0eb547f61754f656b55841e`](https://app.morpho.org/ethereum/market/0x5ffdf15c5a4d7c6affb3f12634eeda1a20e60b92c0eb547f61754f656b55841e) | 20 |
 | JOE | 77% | [`0xef9f1e3e71483c9c9b61d2e27452e26507e52b547775ca899277b35585ef7b01`](https://app.morpho.org/ethereum/market/0xef9f1e3e71483c9c9b61d2e27452e26507e52b547775ca899277b35585ef7b01) | 14 |
 | JOE | 62.5% | [`0x38d28aa002b2961f734763f6afeeb78a36a9b947cb12b988c35a5bb4bde0d1c7`](https://app.morpho.org/ethereum/market/0x38d28aa002b2961f734763f6afeeb78a36a9b947cb12b988c35a5bb4bde0d1c7) | 6 |
 | SPX | 77% | [`0xc7d717f4052ac4e5463dcc58cea0f6b05dd7d8c67e0aee68ebe30a8af09b259f`](https://app.morpho.org/ethereum/market/0xc7d717f4052ac4e5463dcc58cea0f6b05dd7d8c67e0aee68ebe30a8af09b259f) | 16 |
@@ -69,7 +69,7 @@ from block 25030093 through block 25030776
 | BITCOIN | 62.5% | [`0x9bdf55afe3832abff223c7d10b2af529b395ec2489e32d872156421c32ec7a5f`](https://app.morpho.org/ethereum/market/0x9bdf55afe3832abff223c7d10b2af529b395ec2489e32d872156421c32ec7a5f) | 11 |
 | BITCOIN | 77% | [`0x81b97c7305aca46c62f2ffce63a09c6a4d647163e25f31c44fadcbeab838b3f8`](https://app.morpho.org/ethereum/market/0x81b97c7305aca46c62f2ffce63a09c6a4d647163e25f31c44fadcbeab838b3f8) | 9 |
 
-Total counted liquidations across the markets above during this window: **180 liquidation events**.
+Total counted liquidations across the markets above during this window: **181 liquidation events**.
 
 ## First Example Liquidations
 
@@ -77,7 +77,7 @@ Examples of early liquidations after the scale-change update:
 
 | Market | First observed liquidation block | Example liquidation transaction |
 |---|---:|---|
-| PEPE 77% | 25030093 | [`0xfc1f32b1071ec9e89cd4838c9b7f70bffd51ce8f0d84e9dcd915bd63e477a025`](https://etherscan.io/tx/0xfc1f32b1071ec9e89cd4838c9b7f70bffd51ce8f0d84e9dcd915bd63e477a025) |
+| PEPE 77% | 25030092 | [`0x2cf791f65e96359acc6e955bdec3d4504886339f85b05f52db85d61d481052e8`](https://etherscan.io/tx/0x2cf791f65e96359acc6e955bdec3d4504886339f85b05f52db85d61d481052e8) |
 | JOE 77% | 25030093 | [`0x8c91ce992b0db3c0dbb5df139cf64836ed48d7c74d48dab91fbac6088011c265`](https://etherscan.io/tx/0x8c91ce992b0db3c0dbb5df139cf64836ed48d7c74d48dab91fbac6088011c265) |
 | SPX 77% | 25030093 | [`0xaf8c51f017331b810b4904a8ea91a6281532d1b795b445909827932a06b2792a`](https://etherscan.io/tx/0xaf8c51f017331b810b4904a8ea91a6281532d1b795b445909827932a06b2792a) |
 | SPX 62.5% | 25030093 | [`0xd7332dd154064863e65d4c5b70666ce567c53823dd952c4d26fe473ceae34350`](https://etherscan.io/tx/0xd7332dd154064863e65d4c5b70666ce567c53823dd952c4d26fe473ceae34350) |
@@ -91,7 +91,7 @@ The common pattern was:
 
 1. DIA batch update at block `25030092` sets oracle feed values about `10,000x` lower.
 2. Morpho adapter prices follow the scaled-down DIA values.
-3. Positions become liquidatable starting in block `25030093`.
+3. Positions become liquidatable immediately after the update: first in block `25030092` after the DIA update transaction, then more broadly in block `25030093`.
 4. A later DIA update at block `25030777` restores the prior scale.
 
 Return to the [main incident overview](README.md) or continue to [Appendix B: liquidation loss and liquidator extraction estimate](morpho-dia-liquidation-loss-estimate.md).

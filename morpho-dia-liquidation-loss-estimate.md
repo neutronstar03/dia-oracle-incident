@@ -28,10 +28,10 @@ Apparent correction/restoration update:
 Liquidation window analyzed:
 
 ```text
-from block 25030093 through block 25030776
+from block 25030092, transactionIndex > 1, through block 25030776
 ```
 
-This starts immediately after the DIA scale-change update at block `25030092` and ends immediately before the apparent correction at block `25030777`.
+This starts immediately after the DIA scale-change update at block `25030092`, transaction index `1`, and ends immediately before the apparent correction at block `25030777`. The previous window started at block `25030093` and missed one PEPE liquidation in the same block as the DIA update, at transaction index `2`.
 
 ## Methodology
 
@@ -78,21 +78,35 @@ This is an estimate, but the event-level USDS repaid, bad debt, and seized token
 Across the impacted markets analyzed:
 
 ```text
-Unique liquidation transactions: 149
-Liquidation events: 180
+Unique liquidation transactions: 150
+Liquidation events: 181
 ```
 
 Estimated totals:
 
 | Metric | Estimate |
 |---|---:|
-| USDS actually repaid by liquidators | `104.43 USDS` |
-| USDS bad debt recorded | `352,963.78 USDS` |
-| Total USDS debt closed / affected | `353,068.21 USDS` |
-| Fair value of seized collateral | `$1,129,468.38` |
-| Gross liquidator extraction | `$1,129,363.96` |
-| Estimated gas paid by liquidation txs | `$77.26` |
-| Net liquidator extraction after gas | `$1,129,286.70` |
+| USDS actually repaid by liquidators | `157.89 USDS` |
+| USDS bad debt recorded | `654,573.82 USDS` |
+| Total USDS debt closed / affected | `654,731.71 USDS` |
+| Fair value of seized collateral | `$1,707,958.14` |
+| Gross liquidator extraction | `$1,707,800.25` |
+| Estimated gas paid by original liquidation txs | `$77.26` |
+| Net liquidator extraction after known gas | `$1,707,722.99` |
+
+The revised totals include this same-block PEPE 77% liquidation:
+
+| Field | Value |
+|---|---|
+| Transaction | [`0x2cf791f6...52e8`](https://etherscan.io/tx/0x2cf791f65e96359acc6e955bdec3d4504886339f85b05f52db85d61d481052e8) |
+| Block / transaction index | `25030092 / 2` |
+| Morpho market | [`0x5ffdf15c5a4d7c6affb3f12634eeda1a20e60b92c0eb547f61754f656b55841e`](https://app.morpho.org/ethereum/market/0x5ffdf15c5a4d7c6affb3f12634eeda1a20e60b92c0eb547f61754f656b55841e) |
+| Repaid assets | `53.461622 USDS` |
+| Bad debt assets | `301,610.036656 USDS` |
+| Seized assets | `141,438,101,701.052464 PEPE` |
+| Fair PEPE price used | `$0.000004090056` |
+| Fair seized collateral | `$578,489.76` |
+| Gross extraction | `$578,436.29` |
 
 ## Liquidator Count
 
@@ -101,25 +115,26 @@ The liquidations were not all performed by one address.
 Across the same window:
 
 ```text
-180 liquidation events
-149 unique liquidation transactions
-139 unique borrowers
-4 unique Morpho Liquidate callers / liquidator addresses
+181 liquidation events
+150 unique liquidation transactions
+140 unique borrowers
+5 unique Morpho Liquidate callers / liquidator addresses
 ```
 
 Liquidator caller breakdown:
 
 | Liquidator caller | Events | Unique txs | Markets touched | Share of events |
 |---|---:|---:|---:|---:|
-| [`0xad213ae0b710c7bc6c915984d91bad008b2d3221`](https://etherscan.io/address/0xad213ae0b710c7bc6c915984d91bad008b2d3221) | 88 | 88 | 17 | `~48.9%` |
-| [`0x36331e299247e5d0d3261e1d9852f6e0cffee95c`](https://etherscan.io/address/0x36331e299247e5d0d3261e1d9852f6e0cffee95c) | 58 | 58 | 21 | `~32.2%` |
-| [`0xaba996f3f6170a85a31d7f8f4b54816e141278f8`](https://etherscan.io/address/0xaba996f3f6170a85a31d7f8f4b54816e141278f8) | 33 | 2 | 2 | `~18.3%` |
+| [`0xad213ae0b710c7bc6c915984d91bad008b2d3221`](https://etherscan.io/address/0xad213ae0b710c7bc6c915984d91bad008b2d3221) | 88 | 88 | 17 | `~48.6%` |
+| [`0x36331e299247e5d0d3261e1d9852f6e0cffee95c`](https://etherscan.io/address/0x36331e299247e5d0d3261e1d9852f6e0cffee95c) | 58 | 58 | 21 | `~32.0%` |
+| [`0xaba996f3f6170a85a31d7f8f4b54816e141278f8`](https://etherscan.io/address/0xaba996f3f6170a85a31d7f8f4b54816e141278f8) | 33 | 2 | 2 | `~18.2%` |
+| [`0xbd32122bad41a09f2405bb374a83877d8245079c`](https://etherscan.io/address/0xbd32122bad41a09f2405bb374a83877d8245079c) | 1 | 1 | 1 | `~0.6%` |
 | [`0xe08d97e151473a848c3d9ca3f323cb720472d015`](https://etherscan.io/address/0xe08d97e151473a848c3d9ca3f323cb720472d015) | 1 | 1 | 1 | `~0.6%` |
 
 Interpretation:
 
 - The liquidation activity was concentrated among a small number of callers.
-- The top two callers account for about `81.1%` of liquidation events.
+- The top two callers account for about `80.7%` of liquidation events.
 - The third caller performed `33` liquidation events but only used `2` transactions, implying bundled / batched execution.
 - This supports describing the extraction as concentrated liquidator / MEV activity rather than ordinary dispersed liquidations.
 
@@ -129,28 +144,28 @@ The most useful high-level ratios are:
 
 | Ratio | Value |
 |---|---:|
-| Gross extraction / USDS actually repaid | `~1,081,495%` |
-| Net extraction / USDS actually repaid | `~1,081,421%` |
-| Gross extraction / USDS bad debt | `~3.20x` |
-| Gross extraction / total USDS debt affected | `~3.20x` |
+| Gross extraction / USDS actually repaid | `~1,081,628%` |
+| Net extraction / USDS actually repaid | `~1,081,579%` |
+| Gross extraction / USDS bad debt | `~2.61x` |
+| Gross extraction / total USDS debt affected | `~2.61x` |
 | Gross extraction / fair seized collateral value | `~100.0%` |
-| Bad debt / fair seized collateral value | `~31.3%` |
+| Bad debt / fair seized collateral value | `~38.3%` |
 
 Interpretation:
 
-- Liquidators paid only about `104 USDS` in aggregate because the scaled-down oracle values made collateral appear almost worthless.
-- They received collateral whose fair value was approximately `$1.13M` using normalized pre/corrected DIA prices.
-- Morpho recorded approximately `352,964 USDS` of bad debt.
+- Liquidators paid only about `158 USDS` in aggregate because the scaled-down oracle values made collateral appear almost worthless.
+- They received collateral whose fair value was approximately `$1.708M` using normalized pre/corrected DIA prices.
+- Morpho recorded approximately `654,574 USDS` of bad debt.
 - A rough split of the combined economic harm is about:
-  - `~76.2%` captured by liquidators / MEV as collateral extraction.
-  - `~23.8%` left as Morpho bad debt / lender-side loss.
+  - `~72.3%` captured by liquidators / MEV as collateral extraction.
+  - `~27.7%` left as Morpho bad debt / lender-side loss.
 
 ## Per-Market Results
 
 | Collateral | LLTV | Events | Repaid USDS | Bad debt USDS | Seized fair value | Gross extraction | Extraction / repaid | First observed liquidation |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
 | PEPE | 62.5% | 1 | `0.00` | `0.00` | `$1.61` | `$1.61` | `1,135,001.9%` | [`0xc2aad10f...`](https://etherscan.io/tx/0xc2aad10fbf710e11b1011051726cd3b471238d0f1771c174751072523df24543) |
-| PEPE | 77% | 19 | `31.62` | `168,684.03` | `$342,121.61` | `$342,089.99` | `1,081,965.5%` | [`0xfc1f32b1...`](https://etherscan.io/tx/0xfc1f32b1071ec9e89cd4838c9b7f70bffd51ce8f0d84e9dcd915bd63e477a025) |
+| PEPE | 77% | 20 | `85.08` | `470,294.07` | `$920,611.37` | `$920,526.28` | `1,081,933.2%` | [`0x2cf791f6...`](https://etherscan.io/tx/0x2cf791f65e96359acc6e955bdec3d4504886339f85b05f52db85d61d481052e8) |
 | JOE | 77% | 14 | `3.24` | `5,338.43` | `$32,594.91` | `$32,591.67` | `1,005,670.7%` | [`0x8c91ce99...`](https://etherscan.io/tx/0x8c91ce992b0db3c0dbb5df139cf64836ed48d7c74d48dab91fbac6088011c265) |
 | JOE | 62.5% | 6 | `7.54` | `22,386.04` | `$79,577.26` | `$79,569.72` | `1,054,964.8%` | [`0xec053a47...`](https://etherscan.io/tx/0xec053a47cdcd654267057d0862f029b9266aba010f680568ba1f5f45a69d7cf1) |
 | SPX | 77% | 16 | `14.89` | `16,226.40` | `$160,468.94` | `$160,454.05` | `1,077,479.0%` | [`0xaf8c51f0...`](https://etherscan.io/tx/0xaf8c51f017331b810b4904a8ea91a6281532d1b795b445909827932a06b2792a) |
@@ -179,32 +194,32 @@ Interpretation:
 1. The `repaidAssets` and `badDebtAssets` numbers are exact event-decoded on-chain values.
 2. The seized collateral value is an estimate using normalized DIA prices.
 3. The word "MEV" here is used loosely as liquidator extraction. A full MEV accounting would require tracing bundles, swaps, hedges, and private orderflow.
-4. Gas cost is estimated from transaction receipts and is small relative to the extraction.
+4. Gas cost is carried over from the prior estimate and is small relative to the extraction. The revised gross extraction values are the primary figures; net-after-gas should be treated as approximate.
 
 ## Conclusion
 
 The liquidations appear to have affected roughly:
 
 ```text
-353,068 USDS of debt
+654,732 USDS of debt
 ```
 
 with approximately:
 
 ```text
-$1.13M of fair-value collateral seized
+$1.708M of fair-value collateral seized
 ```
 
 The resulting gross liquidator extraction is approximately:
 
 ```text
-$1.129M
+$1.708M
 ```
 
 while Morpho recorded approximately:
 
 ```text
-352,964 USDS of bad debt
+654,574 USDS of bad debt
 ```
 
 This supports the interpretation that the DIA oracle scale-change update caused both substantial lender-side losses and substantial liquidator / MEV extraction.
