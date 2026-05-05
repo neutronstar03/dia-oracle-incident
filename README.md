@@ -101,8 +101,8 @@ The DIA feed emitted by the oracle is **`SPX/USD`**, not literally `SPX/USDS`. T
 
 Morpho SPX/USDS market IDs:
 
-- `0xc7d717f4052ac4e5463dcc58cea0f6b05dd7d8c67e0aee68ebe30a8af09b259f`
-- `0x29200655ad6ee4b86a0f4132e86736844479b4f4ff55d0a40fb31e8264fb811c`
+- [`0xc7d717f4052ac4e5463dcc58cea0f6b05dd7d8c67e0aee68ebe30a8af09b259f`](https://app.morpho.org/ethereum/market/0xc7d717f4052ac4e5463dcc58cea0f6b05dd7d8c67e0aee68ebe30a8af09b259f)
+- [`0x29200655ad6ee4b86a0f4132e86736844479b4f4ff55d0a40fb31e8264fb811c`](https://app.morpho.org/ethereum/market/0x29200655ad6ee4b86a0f4132e86736844479b4f4ff55d0a40fb31e8264fb811c)
 
 Morpho SPX/USDS oracle adapter:
 
@@ -140,8 +140,8 @@ The DIA scale-change update occurred in block `25030092`. The first observed SPX
 
 Observed SPX liquidation counts before the later correction:
 
-- Market `0xc7d717f4052ac4e5463dcc58cea0f6b05dd7d8c67e0aee68ebe30a8af09b259f`: **16 liquidation events**
-- Market `0x29200655ad6ee4b86a0f4132e86736844479b4f4ff55d0a40fb31e8264fb811c`: **8 liquidation events**
+- Market [`0xc7d717f4052ac4e5463dcc58cea0f6b05dd7d8c67e0aee68ebe30a8af09b259f`](https://app.morpho.org/ethereum/market/0xc7d717f4052ac4e5463dcc58cea0f6b05dd7d8c67e0aee68ebe30a8af09b259f): **16 liquidation events**
+- Market [`0x29200655ad6ee4b86a0f4132e86736844479b4f4ff55d0a40fb31e8264fb811c`](https://app.morpho.org/ethereum/market/0x29200655ad6ee4b86a0f4132e86736844479b4f4ff55d0a40fb31e8264fb811c): **8 liquidation events**
 
 Example SPX liquidation transactions in block `25030093`:
 
