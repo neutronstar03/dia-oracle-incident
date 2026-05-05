@@ -24,9 +24,14 @@ At block `25030092`, a DIA oracle batch update changed multiple raw DIA feed val
 | Function called | `setMultipleValues(string[],uint256[])` |
 | DIA oracle contract | [`0xE1A3...1552`](https://etherscan.io/address/0xE1A3d58dc6C516Ef18628ce7E13cfE44B4Ac1552) |
 | Scale-change block | `25030092` |
-| First observed liquidation block | `25030093` |
+| Scale-change transaction index | `1` |
+| First observed liquidation block | `25030092` |
+| First observed liquidation transaction index | `2` |
 | Apparent correction/restoration update | [`0x0612...889b`](https://etherscan.io/tx/0x06124fbc8da5a46c34b1ce43a22a82f3a3eef166428482ae99366b1f11a4889b) |
 | Correction/restoration block | `25030777` |
+| Correction/restoration transaction index | `163` |
+
+The block and transaction-index ordering above is confirmed by transaction metadata and DIA `OracleUpdate(string,uint128,uint128)` logs. The first observed liquidation was the PEPE 77% liquidation [`0x2cf7...52e8`](https://etherscan.io/tx/0x2cf791f65e96359acc6e955bdec3d4504886339f85b05f52db85d61d481052e8), which executed in the same block as the DIA scale-change update and one transaction later.
 
 DIA also published a CDR configuration post for related meme-token feeds. It lists several of the affected feed keys, including `JOE/USD`, `PEPE/USD`, `MOG/USD`, `SPX/USD`, and `IMF/USD`, and describes consumption through `getValue(key)`.
 
@@ -142,7 +147,7 @@ Therefore, Morpho's effective SPX collateral valuation also dropped by approxima
 
 ### SPX Liquidation Evidence
 
-The DIA scale-change update occurred in block `25030092`. The first observed SPX/USDS Morpho liquidations began in the next block, `25030093`.
+The DIA scale-change update occurred in block `25030092`. The first observed liquidation overall was a PEPE 77% liquidation in the same block at transaction index `2`. For SPX/USDS specifically, the first observed Morpho liquidations began in the next block, `25030093`.
 
 Observed SPX liquidation counts before the later correction:
 

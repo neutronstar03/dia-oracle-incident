@@ -11,7 +11,7 @@ Supporting evidence for the [DIA Oracle Scale Incident Documentation](README.md)
 
 ## DIA Feed Scale Drops
 
-The DIA batch update at block `25030092` changed many feeds from their prior raw value scale to values approximately **10,000x lower**. The apparent correction/restoration update occurred at block `25030777`.
+The DIA batch update at block `25030092`, transaction index `1`, changed many feeds from their prior raw value scale to values approximately **10,000x lower**. The apparent correction/restoration update occurred at block `25030777`, transaction index `163`. These block and transaction-index values are taken from transaction metadata and DIA `OracleUpdate(string,uint128,uint128)` logs.
 
 DIA's CDR #094 configuration post lists several of these affected feed keys, including `JOE/USD`, `PEPE/USD`, `MOG/USD`, `SPX/USD`, and `IMF/USD`, and describes reading the values through `getValue(key)`.
 
@@ -46,7 +46,7 @@ Additional related DIA update observed in the same window:
 
 ## Confirmed Morpho USDS Markets With Liquidations
 
-The table below counts Morpho `Liquidate` events from immediately after the DIA scale-change update through the correction window. The window begins in the same block as the DIA update because one PEPE liquidation occurred after the DIA update transaction in block `25030092`.
+The table below counts Morpho `Liquidate` events from immediately after the DIA scale-change update through the correction window. The window begins in the same block as the DIA update because one PEPE liquidation occurred after the DIA update transaction in block `25030092`, at transaction index `2`.
 
 ```text
 from block 25030092, transactionIndex > 1, through block 25030776

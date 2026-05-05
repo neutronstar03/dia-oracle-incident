@@ -21,9 +21,15 @@ DIA scale-change update:
 
 [`0x738f860b6ed20d60fc968ac53783387732a559b9e21ebdd0bfe5da4c6d09574c`](https://etherscan.io/tx/0x738f860b6ed20d60fc968ac53783387732a559b9e21ebdd0bfe5da4c6d09574c)
 
+- Block / transaction index: `25030092 / 1`
+
 Apparent correction/restoration update:
 
 [`0x06124fbc8da5a46c34b1ce43a22a82f3a3eef166428482ae99366b1f11a4889b`](https://etherscan.io/tx/0x06124fbc8da5a46c34b1ce43a22a82f3a3eef166428482ae99366b1f11a4889b)
+
+- Block / transaction index: `25030777 / 163`
+
+These block and transaction-index values are confirmed from transaction metadata and DIA `OracleUpdate(string,uint128,uint128)` logs.
 
 Liquidation window analyzed:
 
@@ -31,7 +37,7 @@ Liquidation window analyzed:
 from block 25030092, transactionIndex > 1, through block 25030776
 ```
 
-This starts immediately after the DIA scale-change update at block `25030092`, transaction index `1`, and ends immediately before the apparent correction at block `25030777`. The previous window started at block `25030093` and missed one PEPE liquidation in the same block as the DIA update, at transaction index `2`.
+This starts immediately after the DIA scale-change update at block `25030092`, transaction index `1`, and ends immediately before the apparent correction at block `25030777`. The first observed liquidation was in the same block as the DIA update, at transaction index `2`; the previous window started at block `25030093` and missed that PEPE liquidation.
 
 A later BOBO scale-change update occurred inside the same window at block `25030121`, transaction index `222`. BOBO is therefore tracked separately from the original batch transaction.
 
