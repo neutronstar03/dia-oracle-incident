@@ -67,6 +67,10 @@ For these meme-token DIA feeds, this estimate uses:
 fair USD/token = DIA raw value / 1e12
 ```
 
+This normalization is supported by DIA's CDR #094 configuration post, which states that `getValue(key)` returns the most recent USD price and gives `MOG/USD` as an example with 12 decimal places.
+
+Reference: [DIA CDR #094: International Meme Fund token price feed](https://forum.diadata.org/t/cdr-094-international-meme-fund-token-price-feed/1028/6)
+
 This is an estimate, but the event-level USDS repaid, bad debt, and seized token amounts are exact on-chain values.
 
 ## Aggregate Results

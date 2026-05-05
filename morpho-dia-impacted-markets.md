@@ -13,6 +13,10 @@ Supporting evidence for the [DIA Oracle Scale Incident Documentation](README.md)
 
 The DIA batch update at block `25030092` changed many feeds from their prior raw value scale to values approximately **10,000x lower**. The apparent correction/restoration update occurred at block `25030777`.
 
+DIA's CDR #094 configuration post lists several of these affected feed keys, including `JOE/USD`, `PEPE/USD`, `MOG/USD`, `SPX/USD`, and `IMF/USD`, and describes reading the values through `getValue(key)`.
+
+Reference: [DIA CDR #094: International Meme Fund token price feed](https://forum.diadata.org/t/cdr-094-international-meme-fund-token-price-feed/1028/6)
+
 All values below are raw DIA values read from `getValue(string)`.
 
 | Feed | Before scale-change update, block 25030060 | Scale-change update, block 25030092 | After correction, block 25030777 | Approx. drop |

@@ -28,6 +28,10 @@ At block `25030092`, a DIA oracle batch update changed multiple raw DIA feed val
 | Apparent correction/restoration update | [`0x0612...889b`](https://etherscan.io/tx/0x06124fbc8da5a46c34b1ce43a22a82f3a3eef166428482ae99366b1f11a4889b) |
 | Correction/restoration block | `25030777` |
 
+DIA also published a CDR configuration post for related meme-token feeds. It lists several of the affected feed keys, including `JOE/USD`, `PEPE/USD`, `MOG/USD`, `SPX/USD`, and `IMF/USD`, and describes consumption through `getValue(key)`.
+
+Reference: [DIA CDR #094: International Meme Fund token price feed](https://forum.diadata.org/t/cdr-094-international-meme-fund-token-price-feed/1028/6)
+
 The observable pattern was:
 
 1. DIA feeds were updated to values roughly `10,000x` lower than their prior scale.
