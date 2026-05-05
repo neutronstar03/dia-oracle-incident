@@ -33,6 +33,8 @@ from block 25030092, transactionIndex > 1, through block 25030776
 
 This starts immediately after the DIA scale-change update at block `25030092`, transaction index `1`, and ends immediately before the apparent correction at block `25030777`. The previous window started at block `25030093` and missed one PEPE liquidation in the same block as the DIA update, at transaction index `2`.
 
+A later BOBO scale-change update occurred inside the same window at block `25030121`, transaction index `222`. BOBO is therefore tracked separately from the original batch transaction.
+
 ## Methodology
 
 For each affected Morpho market, Morpho `Liquidate` events were decoded:
@@ -50,13 +52,13 @@ Liquidate(
 )
 ```
 
-Because all markets here use USDS as the loan asset:
+Because all decoded liquidations in this window use USDS as the loan asset:
 
 - `repaidAssets` = USDS actually repaid by liquidators.
 - `badDebtAssets` = USDS bad debt recorded by Morpho.
 - `seizedAssets` = collateral tokens seized by liquidators.
 
-For seized collateral fair value, this estimate uses the average of:
+For seized collateral fair value in the original batch markets, this estimate uses the average of:
 
 1. the last normal DIA price before the scale-change update, and
 2. the corrected DIA price after restoration.
@@ -75,24 +77,30 @@ This is an estimate, but the event-level USDS repaid, bad debt, and seized token
 
 ## Aggregate Results
 
-Across the impacted markets analyzed:
+Across the full Morpho `Liquidate` log audit for the window:
 
 ```text
-Unique liquidation transactions: 150
-Liquidation events: 181
+Unique liquidation transactions: 155
+Liquidation events: 186
+Unique borrowers: 141
+Unique liquidator callers: 6
 ```
+
+All `186` events are USDS loan markets. The original meme-token valuation table below accounts for `181` events. The remaining `5` events are `2` cbBTC-collateral events from the initial DIA batch and `3` BOBO-collateral events after the later BOBO update; these extra events recorded approximately zero bad debt.
 
 Estimated totals:
 
 | Metric | Estimate |
 |---|---:|
-| USDS actually repaid by liquidators | `157.89 USDS` |
-| USDS bad debt recorded | `654,573.82 USDS` |
-| Total USDS debt closed / affected | `654,731.71 USDS` |
+| USDS actually repaid by liquidators, all 186 events | `157.93 USDS` |
+| USDS bad debt recorded, all 186 events | `654,573.81 USDS` |
+| Total USDS debt closed / affected, all 186 events | `654,731.74 USDS` |
 | Fair value of seized collateral | `$1,707,958.14` |
 | Gross liquidator extraction | `$1,707,800.25` |
 | Estimated gas paid by original liquidation txs | `$77.26` |
 | Net liquidator extraction after known gas | `$1,707,722.99` |
+
+The fair-value and extraction totals above are the original meme-token valuation totals. The cbBTC events add about `$93` of seized-collateral value using the average of pre-update and restored cbBTC DIA prices. The BOBO events add about `$385` using the pre-update BOBO DIA value, but BOBO did not have a matching restoration update in the block `25030777` batch, so it is kept separate from the main fair-value estimate.
 
 The revised totals include this same-block PEPE 77% liquidation:
 
@@ -115,32 +123,33 @@ The liquidations were not all performed by one address.
 Across the same window:
 
 ```text
-181 liquidation events
-150 unique liquidation transactions
-140 unique borrowers
-5 unique Morpho Liquidate callers / liquidator addresses
+186 liquidation events
+155 unique liquidation transactions
+141 unique borrowers
+6 unique Morpho Liquidate callers / liquidator addresses
 ```
 
 Liquidator caller breakdown:
 
 | Liquidator caller | Events | Unique txs | Markets touched | Share of events |
 |---|---:|---:|---:|---:|
-| [`0xad213ae0b710c7bc6c915984d91bad008b2d3221`](https://etherscan.io/address/0xad213ae0b710c7bc6c915984d91bad008b2d3221) | 88 | 88 | 17 | `~48.6%` |
-| [`0x36331e299247e5d0d3261e1d9852f6e0cffee95c`](https://etherscan.io/address/0x36331e299247e5d0d3261e1d9852f6e0cffee95c) | 58 | 58 | 21 | `~32.0%` |
-| [`0xaba996f3f6170a85a31d7f8f4b54816e141278f8`](https://etherscan.io/address/0xaba996f3f6170a85a31d7f8f4b54816e141278f8) | 33 | 2 | 2 | `~18.2%` |
-| [`0xbd32122bad41a09f2405bb374a83877d8245079c`](https://etherscan.io/address/0xbd32122bad41a09f2405bb374a83877d8245079c) | 1 | 1 | 1 | `~0.6%` |
-| [`0xe08d97e151473a848c3d9ca3f323cb720472d015`](https://etherscan.io/address/0xe08d97e151473a848c3d9ca3f323cb720472d015) | 1 | 1 | 1 | `~0.6%` |
+| [`0xad213ae0b710c7bc6c915984d91bad008b2d3221`](https://etherscan.io/address/0xad213ae0b710c7bc6c915984d91bad008b2d3221) | 88 | 88 | 17 | `~47.3%` |
+| [`0x36331e299247e5d0d3261e1d9852f6e0cffee95c`](https://etherscan.io/address/0x36331e299247e5d0d3261e1d9852f6e0cffee95c) | 62 | 62 | 23 | `~33.3%` |
+| [`0xaba996f3f6170a85a31d7f8f4b54816e141278f8`](https://etherscan.io/address/0xaba996f3f6170a85a31d7f8f4b54816e141278f8) | 33 | 2 | 2 | `~17.7%` |
+| [`0xbd32122bad41a09f2405bb374a83877d8245079c`](https://etherscan.io/address/0xbd32122bad41a09f2405bb374a83877d8245079c) | 1 | 1 | 1 | `~0.5%` |
+| [`0x211f4039d132f2cc22f656330c315e52a576c0bc`](https://etherscan.io/address/0x211f4039d132f2cc22f656330c315e52a576c0bc) | 1 | 1 | 1 | `~0.5%` |
+| [`0xe08d97e151473a848c3d9ca3f323cb720472d015`](https://etherscan.io/address/0xe08d97e151473a848c3d9ca3f323cb720472d015) | 1 | 1 | 1 | `~0.5%` |
 
 Interpretation:
 
 - The liquidation activity was concentrated among a small number of callers.
-- The top two callers account for about `80.7%` of liquidation events.
+- The top two callers account for about `80.6%` of liquidation events.
 - The third caller performed `33` liquidation events but only used `2` transactions, implying bundled / batched execution.
 - This supports describing the extraction as concentrated liquidator / MEV activity rather than ordinary dispersed liquidations.
 
 ## Key Ratios
 
-The most useful high-level ratios are:
+The most useful high-level ratios for the original meme-token valuation estimate are:
 
 | Ratio | Value |
 |---|---:|
@@ -161,6 +170,8 @@ Interpretation:
   - `~27.7%` left as Morpho bad debt / lender-side loss.
 
 ## Per-Market Results
+
+The first table is the original meme-token valuation set. The addendum below it lists the extra cbBTC and BOBO liquidations found by the full-window Morpho log audit.
 
 | Collateral | LLTV | Events | Repaid USDS | Bad debt USDS | Seized fair value | Gross extraction | Extraction / repaid | First observed liquidation |
 |---|---:|---:|---:|---:|---:|---:|---:|---|
@@ -189,9 +200,16 @@ Interpretation:
 | BITCOIN | 62.5% | 11 | `8.24` | `25,648.72` | `$89,964.01` | `$89,955.77` | `1,091,190.9%` | [`0x862bb63e...`](https://etherscan.io/tx/0x862bb63ec982bd39d9bbf9813e6784b94590559c3a6f89066e767fda2f3dfe5e) |
 | BITCOIN | 77% | 9 | `0.61` | `878.07` | `$6,371.23` | `$6,370.62` | `1,040,206.1%` | [`0xff767588...`](https://etherscan.io/tx/0xff7675881a7bc837d11a69287af87b10e88c5c50fedafbeb2fd0bac05b675d7c) |
 
+Additional decoded Morpho liquidations in the same window:
+
+| Collateral | LLTV | Events | Repaid USDS | Bad debt USDS | Seized collateral | Valuation note | First observed liquidation |
+|---|---:|---:|---:|---:|---:|---|---|
+| cbBTC | 86% | 2 | `0.0089` | `0.00` | `0.00114442 cbBTC` | About `$93.33` using average pre-update/restored DIA price | [`0xeae7fbcb...`](https://etherscan.io/tx/0xeae7fbcb2b1d13d07fe56697abf98b70227b1212e545a830f87249a4e9783f02) |
+| BOBO | 62.5% | 3 | `0.0332` | `0.00` | `4,158,718,614.26 BOBO` | About `$384.57` using pre-update DIA price; no matching block `25030777` restoration update | [`0xa8c08b01...`](https://etherscan.io/tx/0xa8c08b01aecd3916110d57b2017816c4d77f67d36905408418668623bffbdd43) |
+
 ## Important Caveats
 
-1. The `repaidAssets` and `badDebtAssets` numbers are exact event-decoded on-chain values.
+1. The `repaidAssets` and `badDebtAssets` numbers are exact event-decoded on-chain values for all decoded Morpho liquidations in the window.
 2. The seized collateral value is an estimate using normalized DIA prices.
 3. The word "MEV" here is used loosely as liquidator extraction. A full MEV accounting would require tracing bundles, swaps, hedges, and private orderflow.
 4. Gas cost is carried over from the prior estimate and is small relative to the extraction. The revised gross extraction values are the primary figures; net-after-gas should be treated as approximate.

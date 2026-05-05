@@ -19,7 +19,7 @@ Reference: [DIA CDR #094: International Meme Fund token price feed](https://foru
 
 All values below are raw DIA values read from `getValue(string)`.
 
-| Feed | Before scale-change update, block 25030060 | Scale-change update, block 25030092 | After correction, block 25030777 | Approx. drop |
+| Feed | Before scale-change update | Scale-change update, block 25030092 | After correction, block 25030777 | Approx. drop |
 |---|---:|---:|---:|---:|
 | `PEPE/USD` | `4090714` | `406` | `4089398` | ~10,076x |
 | `JOE/USD` | `13213510296` | `1316032` | `11432311697` | ~10,040x |
@@ -33,6 +33,16 @@ All values below are raw DIA values read from `getValue(string)`.
 | `APU/USD` | `30297690` | `3025` | `29458585` | ~10,016x |
 | `CULT/USD` | `198464876` | `19880` | `178513969` | ~9,983x |
 | `BITCOIN/USD` | `21968841306` | `2175845` | `20178174755` | ~10,096x |
+| `cbBTC/USD` | `81411019677641216` | `8126254324654` | `81697066977326896` | ~10,018x |
+| `wstETH/USD` | `2932555237748118` | `291848106216` | `2920824556852812` | ~10,048x |
+| `ETH/USD` | `2366981603531590` | `236246563686` | `2372153366119403` | ~10,019x |
+| `sUSDS/USD` | `1095340653051` | `109539337` | `1095218218654` | ~10,000x |
+
+Additional related DIA update observed in the same window:
+
+| Feed | Before update, block 25030091 | Scale-change update | Later value in window | Approx. drop |
+|---|---:|---:|---:|---:|
+| `BOBO/USD` | `92474` | `9` at block `25030121` | `9` at block `25030322` | ~10,275x |
 
 ## Confirmed Morpho USDS Markets With Liquidations
 
@@ -68,8 +78,10 @@ from block 25030092, transactionIndex > 1, through block 25030776
 | CULT | 77% | [`0x0655e0c8686d94d9e0c0d2b78d7f99492676e52d712db5ac061b3c78da4b7587`](https://app.morpho.org/ethereum/market/0x0655e0c8686d94d9e0c0d2b78d7f99492676e52d712db5ac061b3c78da4b7587) | 7 |
 | BITCOIN | 62.5% | [`0x9bdf55afe3832abff223c7d10b2af529b395ec2489e32d872156421c32ec7a5f`](https://app.morpho.org/ethereum/market/0x9bdf55afe3832abff223c7d10b2af529b395ec2489e32d872156421c32ec7a5f) | 11 |
 | BITCOIN | 77% | [`0x81b97c7305aca46c62f2ffce63a09c6a4d647163e25f31c44fadcbeab838b3f8`](https://app.morpho.org/ethereum/market/0x81b97c7305aca46c62f2ffce63a09c6a4d647163e25f31c44fadcbeab838b3f8) | 9 |
+| cbBTC | 86% | [`0x2910f6b4ff92dacd6987a6bf74a4c6d15ed1f3acbde6d04fc8cf41c43bb5dbbf`](https://app.morpho.org/ethereum/market/0x2910f6b4ff92dacd6987a6bf74a4c6d15ed1f3acbde6d04fc8cf41c43bb5dbbf) | 2 |
+| BOBO | 62.5% | [`0x74812bbebc266a8054473a62722aeab79ed54fd9f7f23ddb88dfe6af35ef6eb5`](https://app.morpho.org/ethereum/market/0x74812bbebc266a8054473a62722aeab79ed54fd9f7f23ddb88dfe6af35ef6eb5) | 3 |
 
-Total counted liquidations across the markets above during this window: **181 liquidation events**.
+Total counted liquidations across the markets above during this window: **186 liquidation events**. All `186` decoded markets use USDS as the loan asset; no WETH-, cbBTC-, or wstETH-denominated loan markets were present in the Morpho `Liquidate` logs for this window.
 
 ## First Example Liquidations
 
@@ -81,7 +93,9 @@ Examples of early liquidations after the scale-change update:
 | JOE 77% | 25030093 | [`0x8c91ce992b0db3c0dbb5df139cf64836ed48d7c74d48dab91fbac6088011c265`](https://etherscan.io/tx/0x8c91ce992b0db3c0dbb5df139cf64836ed48d7c74d48dab91fbac6088011c265) |
 | SPX 77% | 25030093 | [`0xaf8c51f017331b810b4904a8ea91a6281532d1b795b445909827932a06b2792a`](https://etherscan.io/tx/0xaf8c51f017331b810b4904a8ea91a6281532d1b795b445909827932a06b2792a) |
 | SPX 62.5% | 25030093 | [`0xd7332dd154064863e65d4c5b70666ce567c53823dd952c4d26fe473ceae34350`](https://etherscan.io/tx/0xd7332dd154064863e65d4c5b70666ce567c53823dd952c4d26fe473ceae34350) |
+| cbBTC 86% | 25030094 | [`0xeae7fbcb2b1d13d07fe56697abf98b70227b1212e545a830f87249a4e9783f02`](https://etherscan.io/tx/0xeae7fbcb2b1d13d07fe56697abf98b70227b1212e545a830f87249a4e9783f02) |
 | PEPE 62.5% | 25030100 | [`0xc2aad10fbf710e11b1011051726cd3b471238d0f1771c174751072523df24543`](https://etherscan.io/tx/0xc2aad10fbf710e11b1011051726cd3b471238d0f1771c174751072523df24543) |
+| BOBO 62.5% | 25030122 | [`0xa8c08b01aecd3916110d57b2017816c4d77f67d36905408418668623bffbdd43`](https://etherscan.io/tx/0xa8c08b01aecd3916110d57b2017816c4d77f67d36905408418668623bffbdd43) |
 
 ## Interpretation
 

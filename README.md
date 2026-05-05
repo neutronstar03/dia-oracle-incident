@@ -41,27 +41,29 @@ The observable pattern was:
 
 ## Markets Affected
 
-The affected markets were Morpho USDS debt markets using collateral assets priced by the DIA feeds included in the batch update.
+The affected markets found so far were Morpho USDS debt markets using collateral assets priced by DIA feeds. A full Morpho `Liquidate` log audit for the window found no WETH-, cbBTC-, or wstETH-denominated loan markets among the liquidations; all decoded `badDebtAssets` values are USDS-denominated.
 
 The impacted collateral set appears to include at least:
 
 ```text
-PEPE, JOE, SPX, MOG, SHIB, NEIRO, IMF, NPC, REKT, APU, CULT, BITCOIN
+PEPE, JOE, SPX, MOG, SHIB, NEIRO, IMF, NPC, REKT, APU, CULT, BITCOIN, cbBTC, BOBO
 ```
 
 Across the analyzed liquidation window, the affected markets had:
 
 ```text
-181 liquidation events
-150 unique liquidation transactions
-140 unique borrowers
+186 liquidation events
+155 unique liquidation transactions
+141 unique borrowers
 ```
+
+Of those, `181` events are in the original meme-token batch estimate, `2` are cbBTC-collateral liquidations from the same DIA batch, and `3` are BOBO-collateral liquidations after a later BOBO scale-change update in the same window. The cbBTC and BOBO events recorded approximately zero bad debt, so they do not materially change the bad-debt total.
 
 For the supporting feed-level and market-level evidence, see [Appendix A: affected feeds and Morpho markets](morpho-dia-impacted-markets.md).
 
 ## Estimated Value Loss
 
-Across the impacted markets analyzed, the liquidation and extraction estimate is:
+Across the original meme-token markets analyzed, the liquidation and extraction estimate is:
 
 | Metric | Estimate |
 |---|---:|
@@ -73,22 +75,25 @@ Across the impacted markets analyzed, the liquidation and extraction estimate is
 | Estimated gas paid by original liquidation txs | `$77.26` |
 | Net liquidator extraction after known gas | `$1,707,722.99` |
 
+The full-window bad-debt read across all `186` Morpho liquidations is approximately `654,573.81 USDS`, matching the rounded estimate above. cbBTC and BOBO add less than `$500` of extra seized-collateral value under simple mark-to-reference assumptions, but are separated in the appendices because BOBO was not part of the initial DIA batch transaction and did not have a matching restoration update in the same transaction.
+
 Liquidation activity was concentrated among a small number of liquidator callers:
 
 | Liquidator caller | Events | Unique txs | Markets touched | Share of events |
 |---|---:|---:|---:|---:|
-| [`0xad21...3221`](https://etherscan.io/address/0xad213ae0b710c7bc6c915984d91bad008b2d3221) | 88 | 88 | 17 | `~48.6%` |
-| [`0x3633...e95c`](https://etherscan.io/address/0x36331e299247e5d0d3261e1d9852f6e0cffee95c) | 58 | 58 | 21 | `~32.0%` |
-| [`0xaba9...78f8`](https://etherscan.io/address/0xaba996f3f6170a85a31d7f8f4b54816e141278f8) | 33 | 2 | 2 | `~18.2%` |
-| [`0xbd32...079c`](https://etherscan.io/address/0xbd32122bad41a09f2405bb374a83877d8245079c) | 1 | 1 | 1 | `~0.6%` |
-| [`0xe08d...d015`](https://etherscan.io/address/0xe08d97e151473a848c3d9ca3f323cb720472d015) | 1 | 1 | 1 | `~0.6%` |
+| [`0xad21...3221`](https://etherscan.io/address/0xad213ae0b710c7bc6c915984d91bad008b2d3221) | 88 | 88 | 17 | `~47.3%` |
+| [`0x3633...e95c`](https://etherscan.io/address/0x36331e299247e5d0d3261e1d9852f6e0cffee95c) | 62 | 62 | 23 | `~33.3%` |
+| [`0xaba9...78f8`](https://etherscan.io/address/0xaba996f3f6170a85a31d7f8f4b54816e141278f8) | 33 | 2 | 2 | `~17.7%` |
+| [`0xbd32...079c`](https://etherscan.io/address/0xbd32122bad41a09f2405bb374a83877d8245079c) | 1 | 1 | 1 | `~0.5%` |
+| [`0x211f...0bc`](https://etherscan.io/address/0x211f4039d132f2cc22f656330c315e52a576c0bc) | 1 | 1 | 1 | `~0.5%` |
+| [`0xe08d...d015`](https://etherscan.io/address/0xe08d97e151473a848c3d9ca3f323cb720472d015) | 1 | 1 | 1 | `~0.5%` |
 
 High-level interpretation:
 
 - Liquidators repaid only about `158 USDS` in aggregate because the scaled-down oracle values made collateral appear almost worthless.
 - They received collateral with an estimated fair value of approximately `$1.708M`, using normalized pre-update and post-restoration DIA prices.
 - Morpho recorded approximately `654,574 USDS` of bad debt.
-- The top two liquidator callers account for approximately `80.7%` of liquidation events.
+- The top two liquidator callers account for approximately `80.6%` of liquidation events.
 
 For methodology, caveats, per-market results, and the full liquidator breakdown, see [Appendix B: liquidation loss and liquidator extraction estimate](morpho-dia-liquidation-loss-estimate.md).
 
