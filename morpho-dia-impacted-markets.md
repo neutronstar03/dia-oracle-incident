@@ -1,29 +1,17 @@
-# Morpho DIA Oracle Incident: Broader Impacted Markets
+# Appendix A: Affected DIA Feeds and Morpho Markets
 
-Companion document to the [SPX/USDS incident breakdown](README.md). This note tracks evidence that the same DIA batch update affected a broader set of Morpho USDS collateral markets.
+Supporting evidence for the [DIA Oracle Scale Incident Documentation](README.md). This appendix lists the affected DIA feeds, the corresponding Morpho USDS markets, and observed liquidation activity during the scale-change window.
 
 ## Contents
 
-- [Summary](#summary)
 - [DIA feed scale drops](#dia-feed-scale-drops)
 - [Confirmed Morpho USDS markets with liquidations](#confirmed-morpho-usds-markets-with-liquidations)
 - [First example liquidations](#first-example-liquidations)
 - [Interpretation](#interpretation)
 
-## Summary
-
-The same DIA batch update associated with the SPX/USDS scale issue appears to have affected a broader set of Morpho USDS markets.
-
-| Item | Value |
-|---|---|
-| DIA scale-change update | [`0x738f...574c`](https://etherscan.io/tx/0x738f860b6ed20d60fc968ac53783387732a559b9e21ebdd0bfe5da4c6d09574c) |
-| Called function | `setMultipleValues(string[],uint256[])` |
-| DIA oracle contract | [`0xE1A3...1552`](https://etherscan.io/address/0xE1A3d58dc6C516Ef18628ce7E13cfE44B4Ac1552) |
-| Apparent correction transaction | [`0x0612...889b`](https://etherscan.io/tx/0x06124fbc8da5a46c34b1ce43a22a82f3a3eef166428482ae99366b1f11a4889b) |
-
-The update changed many feeds from their prior normal raw value scale to values approximately **10,000x lower**.
-
 ## DIA Feed Scale Drops
+
+The DIA batch update at block `25030092` changed many feeds from their prior raw value scale to values approximately **10,000x lower**. The apparent correction/restoration update occurred at block `25030777`.
 
 All values below are raw DIA values read from `getValue(string)`.
 
@@ -93,25 +81,13 @@ Examples of early liquidations after the scale-change update:
 
 ## Interpretation
 
-The evidence strongly suggests that the incident was not limited to SPX/USDS. The DIA batch update pushed many DIA feeds down by approximately **10,000x**, and Morpho liquidations began immediately after.
+The evidence indicates that the incident was not limited to SPX/USDS. The DIA batch update pushed many DIA feeds down by approximately **10,000x**, and Morpho liquidations began immediately after.
 
-PEPE/USDS is confirmed as impacted:
+The common pattern was:
 
-- `PEPE/USD` raw DIA value changed from `4090714` to `406`.
-- The PEPE 77% LLTV market had **19 liquidation events** in the scale-change window.
-- The PEPE 62.5% LLTV market had **1 liquidation event** in the same window.
-
-The broad set of impacted collateral markets appears to include at least:
-
-```text
-PEPE, JOE, SPX, MOG, SHIB, NEIRO, IMF, NPC, REKT, APU, CULT, BITCOIN
-```
-
-The common pattern is:
-
-1. DIA batch update at block `25030092` sets oracle feed values about 10,000x too low.
+1. DIA batch update at block `25030092` sets oracle feed values about `10,000x` lower.
 2. Morpho adapter prices follow the scaled-down DIA values.
 3. Positions become liquidatable starting in block `25030093`.
 4. A later DIA update at block `25030777` restores the prior scale.
 
-Return to the [SPX/USDS incident breakdown](README.md) for the single-market timeline and adapter-specific evidence.
+Return to the [main incident overview](README.md) or continue to [Appendix B: liquidation loss and liquidator extraction estimate](morpho-dia-liquidation-loss-estimate.md).
