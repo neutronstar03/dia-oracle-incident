@@ -1,0 +1,117 @@
+# Morpho DIA Oracle Incident: Broader Impacted Markets
+
+Companion document to the [SPX/USDS incident breakdown](README.md). This note tracks evidence that the same DIA batch update affected a broader set of Morpho USDS collateral markets.
+
+## Contents
+
+- [Summary](#summary)
+- [DIA feed scale drops](#dia-feed-scale-drops)
+- [Confirmed Morpho USDS markets with liquidations](#confirmed-morpho-usds-markets-with-liquidations)
+- [First example liquidations](#first-example-liquidations)
+- [Interpretation](#interpretation)
+
+## Summary
+
+The same DIA batch update associated with the SPX/USDS scale issue appears to have affected a broader set of Morpho USDS markets.
+
+| Item | Value |
+|---|---|
+| DIA scale-change update | [`0x738f...574c`](https://etherscan.io/tx/0x738f860b6ed20d60fc968ac53783387732a559b9e21ebdd0bfe5da4c6d09574c) |
+| Called function | `setMultipleValues(string[],uint256[])` |
+| DIA oracle contract | [`0xE1A3...1552`](https://etherscan.io/address/0xE1A3d58dc6C516Ef18628ce7E13cfE44B4Ac1552) |
+| Apparent correction transaction | [`0x0612...889b`](https://etherscan.io/tx/0x06124fbc8da5a46c34b1ce43a22a82f3a3eef166428482ae99366b1f11a4889b) |
+
+The update changed many feeds from their prior normal raw value scale to values approximately **10,000x lower**.
+
+## DIA Feed Scale Drops
+
+All values below are raw DIA values read from `getValue(string)`.
+
+| Feed | Before scale-change update, block 25030060 | Scale-change update, block 25030092 | After correction, block 25030777 | Approx. drop |
+|---|---:|---:|---:|---:|
+| `PEPE/USD` | `4090714` | `406` | `4089398` | ~10,076x |
+| `JOE/USD` | `13213510296` | `1316032` | `11432311697` | ~10,040x |
+| `MOG/USD` | `158148` | `15` | `156082` | ~10,543x |
+| `SPX/USD` | `401176412005` | `40064813` | `402704905465` | ~10,013x |
+| `SHIB/USD` | `6263091` | `625` | `6283645` | ~10,021x |
+| `NEIRO/USD` | `99938041` | `10085` | `101085089` | ~9,910x |
+| `IMF/USD` | `17403738629` | `1731423` | `10243967368` | ~10,052x |
+| `NPC/USD` | `7601983559` | `754989` | `7592651987` | ~10,069x |
+| `REKT/USD` | `150991` | `15` | `147786` | ~10,066x |
+| `APU/USD` | `30297690` | `3025` | `29458585` | ~10,016x |
+| `CULT/USD` | `198464876` | `19880` | `178513969` | ~9,983x |
+| `BITCOIN/USD` | `21968841306` | `2175845` | `20178174755` | ~10,096x |
+
+## Confirmed Morpho USDS Markets With Liquidations
+
+The table below counts Morpho `Liquidate` events from the first post-update block through the correction window:
+
+```text
+from block 25030093 through block 25030776
+```
+
+| Collateral | LLTV | Market ID | Liquidation events |
+|---|---:|---|---:|
+| PEPE | 62.5% | `0xcbc21405c11c8eb13f1741bfba2a72dfbdab3cb525b79dc5b61148b1183b79a0` | 1 |
+| PEPE | 77% | `0x5ffdf15c5a4d7c6affb3f12634eeda1a20e60b92c0eb547f61754f656b55841e` | 19 |
+| JOE | 77% | `0xef9f1e3e71483c9c9b61d2e27452e26507e52b547775ca899277b35585ef7b01` | 14 |
+| JOE | 62.5% | `0x38d28aa002b2961f734763f6afeeb78a36a9b947cb12b988c35a5bb4bde0d1c7` | 6 |
+| SPX | 77% | `0xc7d717f4052ac4e5463dcc58cea0f6b05dd7d8c67e0aee68ebe30a8af09b259f` | 16 |
+| SPX | 62.5% | `0x29200655ad6ee4b86a0f4132e86736844479b4f4ff55d0a40fb31e8264fb811c` | 8 |
+| MOG | 62.5% | `0x44f51e6b7356132597872e40c8d4a5bb2f1fc2c99e7292ee3b3953d9074086b6` | 10 |
+| MOG | 77% | `0x3f1d5c88c72432b04f2074499fe217468af49ddaa98bcb6ec80b08f76a82c6ec` | 41 |
+| SHIB | 62.5% | `0xbd5cff99f6a6988399f1f95835186a46e4642c615bf6364c33027504514791f8` | 1 |
+| SHIB | 77% | `0x1a01594467db83fefd93ad9028e3c13ca7f8499f7086afefb667966f6a2b3b11` | 1 |
+| NEIRO | 77% | `0xc26fb49a683ba55846974fe8283d63ab40dff0788c5ef4e79990426f080b60ec` | 1 |
+| NEIRO | 62.5% | `0x5fbb467c8f4f3a64ec8c3a58d04febbcce3eaec510f4dfaec5b1b57c8f189a14` | 1 |
+| IMF | 62.5% | `0xa5a49fa08443783f5a5cdc99b604033378f65148ec5cb6b2e718e801c4e7fe08` | 9 |
+| IMF | 77% | `0x0976b2b8e796994ef3e2fcc6c2f808c420917d531bb9cfaa4537773ca6860e1c` | 5 |
+| NPC | 77% | `0xce3a5f1bd26a980be6db1b7acc1a082413bb948d9b19fb4a92cfe5108ff2f275` | 1 |
+| NPC | 62.5% | `0x604e98b52f2375c5d3c6e92766c14174eb45ffbb61d36091f21277ae8930e42c` | 1 |
+| REKT | 77% | `0xa7ed1d25d22232695244bf63fdee33688d6d3540e569dd3d88919a7982ed1d7a` | 4 |
+| REKT | 62.5% | `0x973b23002efe233943715a2dfb98b66a0434d4b192b00bb4924230b3916433f7` | 2 |
+| APU | 62.5% | `0x37997b3cf7cea3555abb101f94f39963e8256be71408165937d4fb7642039ac7` | 2 |
+| APU | 77% | `0x347aa5f94a12dd46d3e17e542ca1c4033bd6952bde4b22af3caa33c82e52451a` | 3 |
+| CULT | 62.5% | `0xb1115c39bd889bbf0295e1482a50a3c3582bd08668fd73bedcbc26c3cb939225` | 7 |
+| CULT | 77% | `0x0655e0c8686d94d9e0c0d2b78d7f99492676e52d712db5ac061b3c78da4b7587` | 7 |
+| BITCOIN | 62.5% | `0x9bdf55afe3832abff223c7d10b2af529b395ec2489e32d872156421c32ec7a5f` | 11 |
+| BITCOIN | 77% | `0x81b97c7305aca46c62f2ffce63a09c6a4d647163e25f31c44fadcbeab838b3f8` | 9 |
+
+Total counted liquidations across the markets above during this window: **180 liquidation events**.
+
+## First Example Liquidations
+
+Examples of early liquidations after the scale-change update:
+
+| Market | First observed liquidation block | Example liquidation transaction |
+|---|---:|---|
+| PEPE 77% | 25030093 | [`0xfc1f32b1071ec9e89cd4838c9b7f70bffd51ce8f0d84e9dcd915bd63e477a025`](https://etherscan.io/tx/0xfc1f32b1071ec9e89cd4838c9b7f70bffd51ce8f0d84e9dcd915bd63e477a025) |
+| JOE 77% | 25030093 | [`0x8c91ce992b0db3c0dbb5df139cf64836ed48d7c74d48dab91fbac6088011c265`](https://etherscan.io/tx/0x8c91ce992b0db3c0dbb5df139cf64836ed48d7c74d48dab91fbac6088011c265) |
+| SPX 77% | 25030093 | [`0xaf8c51f017331b810b4904a8ea91a6281532d1b795b445909827932a06b2792a`](https://etherscan.io/tx/0xaf8c51f017331b810b4904a8ea91a6281532d1b795b445909827932a06b2792a) |
+| SPX 62.5% | 25030093 | [`0xd7332dd154064863e65d4c5b70666ce567c53823dd952c4d26fe473ceae34350`](https://etherscan.io/tx/0xd7332dd154064863e65d4c5b70666ce567c53823dd952c4d26fe473ceae34350) |
+| PEPE 62.5% | 25030100 | [`0xc2aad10fbf710e11b1011051726cd3b471238d0f1771c174751072523df24543`](https://etherscan.io/tx/0xc2aad10fbf710e11b1011051726cd3b471238d0f1771c174751072523df24543) |
+
+## Interpretation
+
+The evidence strongly suggests that the incident was not limited to SPX/USDS. The DIA batch update pushed many DIA feeds down by approximately **10,000x**, and Morpho liquidations began immediately after.
+
+PEPE/USDS is confirmed as impacted:
+
+- `PEPE/USD` raw DIA value changed from `4090714` to `406`.
+- The PEPE 77% LLTV market had **19 liquidation events** in the scale-change window.
+- The PEPE 62.5% LLTV market had **1 liquidation event** in the same window.
+
+The broad set of impacted collateral markets appears to include at least:
+
+```text
+PEPE, JOE, SPX, MOG, SHIB, NEIRO, IMF, NPC, REKT, APU, CULT, BITCOIN
+```
+
+The common pattern is:
+
+1. DIA batch update at block `25030092` sets oracle feed values about 10,000x too low.
+2. Morpho adapter prices follow the scaled-down DIA values.
+3. Positions become liquidatable starting in block `25030093`.
+4. A later DIA update at block `25030777` restores the prior scale.
+
+Return to the [SPX/USDS incident breakdown](README.md) for the single-market timeline and adapter-specific evidence.
