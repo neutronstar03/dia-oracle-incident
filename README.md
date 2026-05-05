@@ -82,6 +82,8 @@ Across the original meme-token markets analyzed, the liquidation and extraction 
 
 The full-window bad-debt read across all `186` Morpho liquidations is approximately `654,573.81 USDS`, matching the rounded estimate above. cbBTC and BOBO add less than `$500` of extra seized-collateral value under simple mark-to-reference assumptions, but are separated in the appendices because BOBO was not part of the initial DIA batch transaction and did not have a matching restoration update in the same transaction.
 
+Total combined value impact, counting gross liquidator extraction plus Morpho bad debt, is approximately **`$2.36M`**.
+
 Liquidation activity was concentrated among a small number of liquidator callers:
 
 | Liquidator caller | Events | Unique txs | Markets touched | Share of events |
