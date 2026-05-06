@@ -84,7 +84,7 @@ The full-window bad-debt read across all `186` Morpho liquidations is approximat
 
 Total combined value impact, counting gross liquidator extraction plus Morpho bad debt, is approximately **`$2.36M`**.  
 
-To make every position whole back as pre-incident an overall **`$1,053,149.17`** is needed (borrowers would get back usd-denominated value to their remaining collateral)
+**To make every position whole back** as pre-incident an overall **`$1,053,149.17`** is needed (borrowers would get back usd-denominated value to their remaining collateral)
 
 
 Liquidation activity was concentrated among a small number of liquidator callers:
