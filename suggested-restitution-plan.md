@@ -137,23 +137,23 @@ Per-lender bad-debt allocation uses each lender's Morpho supply shares at the pr
 
 Shown 15 of 37 lender rows. The full table is in [`data/lender-bad-debt-by-lender.md`](data/lender-bad-debt-by-lender.md). Rows are sorted by largest lender bad-debt allocation:
 
-| Lender | Markets | Lender bad debt USDS |
-|---|---:|---:|
-| [`0x2e87...984d`](https://etherscan.io/address/0x2e87d6bfa3f2a932e0c70a32607c0b839404984d) | 10 | `142,372.65` |
-| [`0xf704...1353`](https://etherscan.io/address/0xf7044e57bcd224cca81378c5d636194d228f1353) | 1 | `124,878.16` |
-| [`0x39f4...bebc`](https://etherscan.io/address/0x39f434f2beaba6df1f200350813c19f5d6d0bebc) | 1 | `79,484.96` |
-| [`0x7c09...808e`](https://etherscan.io/address/0x7c09c02aa9eea0c61368cb66cec65d2f0b07808e) | 6 | `66,408.99` |
-| [`0xc766...6c54`](https://etherscan.io/address/0xc7666afe71d4699a9331092ccfd055846f9c6c54) | 12 | `43,911.46` |
-| [`0x25d3...d449`](https://etherscan.io/address/0x25d385fcab771e36a826bbfb47e2ddaa2f19d449) | 8 | `36,134.20` |
-| [`0xdef1...d43d`](https://etherscan.io/address/0xdef1fce2df6270fdf7e1214343bebbab8583d43d) | 11 | `33,282.75` |
-| [`0xb39d...ea3f`](https://etherscan.io/address/0xb39d9d81ce88aa1679f0570af6e452d50358ea3f) | 12 | `20,901.31` |
-| [`0x240d...6606`](https://etherscan.io/address/0x240d6ce8edf36fdc534c920238512b9c0ca96606) | 1 | `17,641.64` |
-| [`0x48cd...4955`](https://etherscan.io/address/0x48cd090c9e8a9954b0955c8b87754031d90c4955) | 5 | `16,395.80` |
-| [`0xde0e...d253`](https://etherscan.io/address/0xde0ea31b4084b428ca85205a5e6dbaf16818d253) | 1 | `14,593.70` |
-| [`0x60a3...6dbd`](https://etherscan.io/address/0x60a36588d8ed7a8bb886659d17b36b34e81e6dbd) | 1 | `13,886.52` |
-| [`0x579e...2ccc`](https://etherscan.io/address/0x579ea162eda350ff57b7ef4b34bd72f749d92ccc) | 8 | `10,235.45` |
-| [`0xbbc9...00e0`](https://etherscan.io/address/0xbbc901782e2409751ac7bb7c6a778080570600e0) | 3 | `8,925.60` |
-| [`0x0424...9596`](https://etherscan.io/address/0x0424ece0ea139f2df634fe5eb97a2c8a49289596) | 1 | `7,087.29` |
+| Lender | Markets | Lender bad debt USDS | Vault |
+|---|---:|---:|---|
+| [`0x2e87...984d`](https://etherscan.io/address/0x2e87d6bfa3f2a932e0c70a32607c0b839404984d) | 10 | `142,372.65` | Pocky's High Yield USDS (`PUSDSHY`); owner [`pockythehamster.eth`](https://etherscan.io/address/0xb497070466Dc15FA6420b4781bB0352257146495) |
+| [`0xf704...1353`](https://etherscan.io/address/0xf7044e57bcd224cca81378c5d636194d228f1353) | 1 | `124,878.16` | — |
+| [`0x39f4...bebc`](https://etherscan.io/address/0x39f434f2beaba6df1f200350813c19f5d6d0bebc) | 1 | `79,484.96` | — |
+| [`0x7c09...808e`](https://etherscan.io/address/0x7c09c02aa9eea0c61368cb66cec65d2f0b07808e) | 6 | `66,408.99` | — |
+| [`0xc766...6c54`](https://etherscan.io/address/0xc7666afe71d4699a9331092ccfd055846f9c6c54) | 12 | `43,911.46` | — |
+| [`0x25d3...d449`](https://etherscan.io/address/0x25d385fcab771e36a826bbfb47e2ddaa2f19d449) | 8 | `36,134.20` | Simple USDS (`SIMPLE`); owner [`0x8014...b564`](https://etherscan.io/address/0x8014540C6C45BFcA7301E2898f8F04864252b564) |
+| [`0xdef1...d43d`](https://etherscan.io/address/0xdef1fce2df6270fdf7e1214343bebbab8583d43d) | 11 | `33,282.75` | IMF USDS (`IMF-USDS`); owner [`0x2625...c466`](https://etherscan.io/address/0x2625Bfb6aD9840C2c0ABb48f150Eb9158393c466) |
+| [`0xb39d...ea3f`](https://etherscan.io/address/0xb39d9d81ce88aa1679f0570af6e452d50358ea3f) | 12 | `20,901.31` | — |
+| [`0x240d...6606`](https://etherscan.io/address/0x240d6ce8edf36fdc534c920238512b9c0ca96606) | 1 | `17,641.64` | — |
+| [`0x48cd...4955`](https://etherscan.io/address/0x48cd090c9e8a9954b0955c8b87754031d90c4955) | 5 | `16,395.80` | — |
+| [`0xde0e...d253`](https://etherscan.io/address/0xde0ea31b4084b428ca85205a5e6dbaf16818d253) | 1 | `14,593.70` | — |
+| [`0x60a3...6dbd`](https://etherscan.io/address/0x60a36588d8ed7a8bb886659d17b36b34e81e6dbd) | 1 | `13,886.52` | — |
+| [`0x579e...2ccc`](https://etherscan.io/address/0x579ea162eda350ff57b7ef4b34bd72f749d92ccc) | 8 | `10,235.45` | — |
+| [`0xbbc9...00e0`](https://etherscan.io/address/0xbbc901782e2409751ac7bb7c6a778080570600e0) | 3 | `8,925.60` | Baguette USDS Yield (`BUS`); owner [`0xE00e...0462`](https://etherscan.io/address/0xE00e1c5bAF8bd85c514E026b014A458662670462) |
+| [`0x0424...9596`](https://etherscan.io/address/0x0424ece0ea139f2df634fe5eb97a2c8a49289596) | 1 | `7,087.29` | — |
 
 ## Small cbBTC and BOBO Rows
 
