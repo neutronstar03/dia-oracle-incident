@@ -1,4 +1,6 @@
-# Appendix B: Liquidation Loss and Liquidator Extraction Estimate
+# ~~Appendix B: Liquidation Loss and Liquidator Extraction Estimate~~
+
+> **Preliminary / superseded for restitution.** This appendix is preserved as an early liquidation and extraction report, but the restitution amounts in [`suggested-restitution-plan.md`](suggested-restitution-plan.md) supersede it. In particular, the suggested restitution plan uses a pre-incident block `25030091` price snapshot and separates borrower net equity restitution from lender bad-debt restitution.
 
 Supporting estimate for the [DIA Oracle Scale Incident Documentation](README.md). This appendix quantifies liquidation amounts, bad debt, seized collateral value, and liquidator concentration across the affected Morpho USDS markets.
 

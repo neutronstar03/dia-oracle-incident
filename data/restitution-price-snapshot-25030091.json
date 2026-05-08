@@ -1,0 +1,133 @@
+{
+  "snapshotBlock": 25030091,
+  "diaOracle": "0xE1A3d58dc6C516Ef18628ce7E13cfE44B4Ac1552",
+  "normalization": "USD per token = DIA raw value / 1e12",
+  "prices": [
+    {
+      "collateral": "PEPE",
+      "feed": "PEPE/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "4090714",
+      "diaTimestamp": 1777992067,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.000004090714"
+    },
+    {
+      "collateral": "JOE",
+      "feed": "JOE/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "13213510296",
+      "diaTimestamp": 1777986065,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.013213510296"
+    },
+    {
+      "collateral": "SPX",
+      "feed": "SPX/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "401176412005",
+      "diaTimestamp": 1777999229,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.401176412005"
+    },
+    {
+      "collateral": "MOG",
+      "feed": "MOG/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "158148",
+      "diaTimestamp": 1777990625,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.000000158148"
+    },
+    {
+      "collateral": "SHIB",
+      "feed": "SHIB/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "6263091",
+      "diaTimestamp": 1777974360,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.000006263091"
+    },
+    {
+      "collateral": "NEIRO",
+      "feed": "NEIRO/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "99938041",
+      "diaTimestamp": 1777996842,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.000099938041"
+    },
+    {
+      "collateral": "IMF",
+      "feed": "IMF/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "17403738629",
+      "diaTimestamp": 1777974360,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.017403738629"
+    },
+    {
+      "collateral": "NPC",
+      "feed": "NPC/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "7601983559",
+      "diaTimestamp": 1777987858,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.007601983559"
+    },
+    {
+      "collateral": "REKT",
+      "feed": "REKT/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "150991",
+      "diaTimestamp": 1777985458,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.000000150991"
+    },
+    {
+      "collateral": "APU",
+      "feed": "APU/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "30297690",
+      "diaTimestamp": 1777987390,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.00003029769"
+    },
+    {
+      "collateral": "CULT",
+      "feed": "CULT/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "198464876",
+      "diaTimestamp": 1777974360,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.000198464876"
+    },
+    {
+      "collateral": "BITCOIN",
+      "feed": "BITCOIN/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "21968841306",
+      "diaTimestamp": 1777974360,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.021968841306"
+    },
+    {
+      "collateral": "cbBTC",
+      "feed": "cbBTC/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "81411019677641216",
+      "diaTimestamp": 1777986305,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "81411.019677641216"
+    },
+    {
+      "collateral": "BOBO",
+      "feed": "BOBO/USD",
+      "snapshotBlock": 25030091,
+      "diaRawValue": "92474",
+      "diaTimestamp": 1777993962,
+      "normalization": "diaRawValue / 1e12",
+      "usdPerToken": "0.000000092474"
+    }
+  ]
+}

@@ -8,11 +8,14 @@ Documentation for the May 5, 2026 DIA oracle scale incident affecting Morpho USD
 2. [Markets affected](#markets-affected)
 3. [Estimated value loss](#estimated-value-loss)
 4. [Specific example: SPX/USDS](#specific-example-spxusds)
+5. [Suggested restitution plan](#suggested-restitution-plan)
 
 Supporting appendices:
 
 - [Appendix A: affected feeds and Morpho markets](morpho-dia-impacted-markets.md)
-- [Appendix B: liquidation loss and liquidator extraction estimate](morpho-dia-liquidation-loss-estimate.md)
+- ~~[Appendix B: liquidation loss and liquidator extraction estimate](morpho-dia-liquidation-loss-estimate.md)~~ — preliminary report, superseded for restitution by the suggested plan
+- [Suggested restitution plan](suggested-restitution-plan.md)
+- [Restitution technical methodology](restitution-technical-methodology.md)
 
 ## What Happened
 
@@ -84,7 +87,7 @@ The full-window bad-debt read across all `186` Morpho liquidations is approximat
 
 Total combined value impact, counting gross liquidator extraction plus Morpho bad debt, is approximately **`$2.36M`**.  
 
-**To make every position whole back** as pre-incident an overall **`$1,053,149.17`** is needed (borrowers would get back usd-denominated value to their remaining collateral)
+The earlier borrower make-whole estimate of `$1,053,149.17` is superseded. It was a preliminary figure based on the Appendix B valuation approach and also double-subtracted some components from an already net-style estimate. The current suggested restitution analysis uses a pre-incident block `25030091` price snapshot and separates borrower net equity restoration from lender bad-debt restoration. Under that approach, total suggested restitution is **`1,733,056.58 USDS`**, made up of **`1,078,482.67 USDS`** of borrower net restitution plus **`654,573.91 USDS`** of lender bad-debt restitution. See the [suggested restitution plan](suggested-restitution-plan.md).
 
 
 Liquidation activity was concentrated among a small number of liquidator callers:
@@ -167,3 +170,9 @@ Example SPX liquidation transactions in block `25030093`:
 - [`0xed2b8dc94ec3f0a404c5c42083ae57f24fa743271e4d3320a895cb2bec0d4487`](https://etherscan.io/tx/0xed2b8dc94ec3f0a404c5c42083ae57f24fa743271e4d3320a895cb2bec0d4487)
 
 For all other affected markets, the documentation keeps the details in appendices to avoid repeating the same pattern market-by-market.
+
+## Suggested Restitution Plan
+
+An unofficial suggested restitution plan is maintained separately in [`suggested-restitution-plan.md`](suggested-restitution-plan.md). It separates borrower net equity restoration from lender bad-debt restoration and includes generated borrower and lender tables.
+
+Technical reproduction details for those figures are in [`restitution-technical-methodology.md`](restitution-technical-methodology.md).
